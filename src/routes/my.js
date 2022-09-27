@@ -2,8 +2,8 @@ const express = require('express')
 const router = express.Router()
 const multer = require('multer')
 const path = require('path')
-const { changeAvatar } = require('../controller/my')
-const { getUserInfo } = require('../service/users')
+const { changeAvatar, changeNickName, changeDesc } = require('../controller/My')
+const { getUserInfo } = require('../service/User')
 
 // 存放上传头像的位置与文件名
 const storage = multer.diskStorage({
@@ -24,6 +24,20 @@ router.post('/upload/image', upload.single('avatar'), async (req, res, next) => 
   const userInfo = await getUserInfo({ username: req.auth.username })
   const newAvatar = `http://${req.headers.host}/${destination}/${filename}`
   const result = await changeAvatar({ newAvatar }, { userInfo })
+  res.json(result)
+})
+
+router.post('/edit/nickName', async (req, res, next) => {
+  const { nickName } = req.body
+  const userInfo = await getUserInfo({ username: req.auth.username })
+  const result = await changeNickName({ newNickName: nickName }, { userInfo })
+  res.json(result)
+})
+
+router.post('/edit/desc', async (req, res, next) => {
+  const { description } = req.body
+  const userInfo = await getUserInfo({ username: req.auth.username })
+  const result = await changeDesc({ newDesc: description }, { userInfo })
   res.json(result)
 })
 

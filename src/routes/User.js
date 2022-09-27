@@ -1,6 +1,6 @@
 var express = require('express')
 var router = express.Router()
-const { register, login } = require('../controller/users')
+const { register, login } = require('../controller/User')
 
 // 登录
 router.post('/login', async (req, res, next) => {

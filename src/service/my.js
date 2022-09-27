@@ -1,10 +1,16 @@
 const { User } = require("../db/model")
 
-const updateUserInfo = async ({ newAvatar }, { username }) => {
+const updateUserInfo = async ({ newAvatar, newNickName, newDesc }, { username }) => {
   // 要更新的内容
   const updateData = {}
   if (newAvatar) {
     updateData.avatar = newAvatar
+  }
+  if (newNickName) {
+    updateData.nickName = newNickName
+  }
+  if (newDesc) {
+    updateData.description = newDesc
   }
   // 查询条件
   const whereData = {
@@ -14,7 +20,7 @@ const updateUserInfo = async ({ newAvatar }, { username }) => {
   const result = await User.update(updateData, {
     where: whereData
   })
-  console.log(result)
+  console.log(result) // [1]
   return result[0] > 0
 }
 

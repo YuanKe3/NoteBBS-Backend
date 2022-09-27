@@ -1,6 +1,6 @@
 const { TOKEN_KEY } = require('../conf/secretKeys')
 const { SuccessModel, ErrorModel } = require('../model/resModel')
-const { getUserInfo, createUser } = require('../service/users')
+const { getUserInfo, createUser } = require('../service/User')
 // 用于生成 JWT 字符串
 const jwt = require('jsonwebtoken')
 
@@ -31,7 +31,7 @@ const login = async ({ username, password }) => {
       message: '密码错误'
     })
   }
-  const token = jwt.sign({ username }, TOKEN_KEY, { expiresIn: '3000s' })
+  const token = jwt.sign({ username, id: userInfo.id }, TOKEN_KEY, { expiresIn: '3000s' })
   return new SuccessModel({
     token,
     userInfo: {

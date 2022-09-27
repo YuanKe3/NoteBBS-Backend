@@ -1,5 +1,8 @@
 const seq = require('./seq')
 require('./model/User')
+require('./model/NoteContent')
+require('./model/NoteMinorCategory')
+require('./model/NoteMajorCategory')
 
 // 测试连接
 seq.authenticate().then(() => {

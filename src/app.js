@@ -5,9 +5,10 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const cors = require('cors')
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var myRouter = require('./routes/my');
+var indexRouter = require('./routes/Index');
+var usersRouter = require('./routes/User');
+var myRouter = require('./routes/My');
+const noteRouter = require('./routes/Note')
 
 // 用于将 JWT 字符串解析还原成 json 对象
 const { expressjwt } = require('express-jwt');
@@ -38,6 +39,7 @@ app.use(expressjwt({ secret: TOKEN_KEY, algorithms: ['HS256'] }).unless({
 app.use('/', indexRouter);
 app.use('/api/user', usersRouter);
 app.use('/my', myRouter)
+app.use('/majorCategory', noteRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
